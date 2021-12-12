@@ -3,16 +3,10 @@ import {Text, Card, Button} from 'react-native-elements';
 import {Input} from 'react-native-elements/dist/input/Input';
 
 const ProductEditable = ({product, buttonText, onClick}) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [value, setValue] = useState('');
-  if (product !== null) {
-    setTitle(product.title);
-    setDescription(product.description);
-    setPrice(product.price);
-    setValue(product.value);
-  }
+  const [title, setTitle] = useState(product.title);
+  const [description, setDescription] = useState(product.description);
+  const [price, setPrice] = useState(product.price);
+  const [value, setValue] = useState(product.value);
 
   return (
     <Card>

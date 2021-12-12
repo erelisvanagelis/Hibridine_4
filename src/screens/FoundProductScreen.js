@@ -12,7 +12,6 @@
    ScrollView,
    StatusBar,
    StyleSheet,
-   Text,
    useColorScheme,
    View,
    TouchableOpacity,
@@ -29,14 +28,13 @@
  import { Text, Card } from 'react-native-elements';
  
  import {useState} from 'react';
- 
- const 
+import Product from '../components/Product';
 
  const FoundProductScreen = ({route}) => {
-
+    const {product} = route.params;
    return (
      <SafeAreaView>
-         
+         <Product product={product} />
      </SafeAreaView>
    );
  };

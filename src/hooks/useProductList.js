@@ -1,5 +1,5 @@
 import {useRecoilState} from 'recoil';
-import productListState from '../atoms/productListState';
+import {productListState} from '../atoms/productListState';
 import firestore from '@react-native-firebase/firestore';
 
 const produtsCollection = firestore().collection('products');

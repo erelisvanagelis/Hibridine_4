@@ -29,17 +29,27 @@ import {
 
 import {useState, useEffect} from 'react';
 import {useProductList} from '../hooks/useProductList';
+import Product from '../components/Product';
 
 const AllProductScreen = () => {
   const productHook = useProductList();
 
-  useEffect(() => {
-    productHook.refreshList();
-  }, []);
+  const callback = (product) => {
+      console.log("spaustas")
+      console.log(product)
+  }
+//   useEffect(() => {
+//     productHook.refreshList();
+//   }, []);
 
   const renderItem = ({ item }) => (
-    <Text>{item.title}</Text>
-    // <Advert advert={item} />
+      <Product product={{
+          id:item.id,
+          value: item.id,
+          title: item.title,
+          description: item.description,
+          price: item.price
+      }} buttonTitle="Delete?" onClick={callback} />
   );
 
   return (

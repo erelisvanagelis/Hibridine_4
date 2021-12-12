@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1037895989726",
+    "project_id": "hibridine4-11fb0",
+    "storage_bucket": "hibridine4-11fb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037895989726:android:62c5d2c456778b3ace854f",
+        "android_client_info": {
+          "package_name": "com.hibridine_4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037895989726-dve45vv5bs3kg05q9rrckmj1j0ropags.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hibridine_4",
+            "certificate_hash": "ab5fbead58087222743f9168d78a0d00e0a9cd92"
+          }
+        },
+        {
+          "client_id": "1037895989726-r7crfl1iim4ldqgbvd2t7esr6g89pnqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDuRXpIZzCQWq5Cl66a74WjfrJYg_fmSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037895989726-r7crfl1iim4ldqgbvd2t7esr6g89pnqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,13 +4,21 @@ import firestore from '@react-native-firebase/firestore';
 
 const produtsCollection = firestore().collection('products');
 
-export const useFoodList = () => {
+export const useProductList = () => {
   const [productList, setProductList] = useRecoilState(productListState);
 
-  function addProduct(value, title, description, price) {
+  async function addProduct(value, title, description, price) {
+    const response = await produtsCollection.add({
+      value: value,
+      title: title,
+      description: description,
+      price: price,
+    });
+
     setProductList(productList => [
       ...productList,
       {
+        id: response.id,
         value: value,
         title: title,
         description: description,
@@ -19,11 +27,19 @@ export const useFoodList = () => {
     ]);
   }
 
-  function removeProduct(id) {
+  async function removeProduct(id) {
+    await produtsCollection.doc(id).delete();
     setProductList(productList => productList.filter(item => item.id !== id));
   }
 
-  function modifyProduct(product) {
+  async function modifyProduct(product) {
+    await produtsCollection.doc(id).update({
+      value: product.value,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+    });
+
     const index = productList.findIndex(item => item.id === product.id);
     productList[index] = {
       value: product.value,
@@ -37,25 +53,20 @@ export const useFoodList = () => {
 
   async function refreshList() {
     const snapshot = await produtsCollection.get();
-
     if (snapshot.empty) {
       console.log('No matching documents.');
       return;
     }
 
-    const products = []
+    const products = [];
     snapshot.forEach(doc => {
-        products.push(
-            {
-                id: doc.id,
-                value: doc.data.value,
-                title: doc.data.title,
-                description: doc.data.description,
-                price: doc.data.price,
-            }
-        )
+      products.push({
+        ...doc.data(),
+        id: doc.id,
+      });
       console.log(doc.id, '=>', doc.data());
     });
+    setProductList(products);
   }
 
   return {productList, addProduct, removeProduct, modifyProduct, refreshList};

@@ -43,8 +43,7 @@ const CameraView = ({navigation}) => {
 
       camera.pausePreview()
       const data = event.barcodes[0].data
-      navigation.navigate('add')
-      
+      navigation.navigate('add', { value: data })
     }
   }
 

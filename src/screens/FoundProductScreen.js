@@ -25,11 +25,15 @@
    LearnMoreLinks,
    ReloadInstructions,
  } from 'react-native/Libraries/NewAppScreen';
+
+ import { Text, Card } from 'react-native-elements';
  
  import {useState} from 'react';
  
- 
- const FoundProductScreen = () => {
+ const 
+
+ const FoundProductScreen = ({route}) => {
+
    return (
      <SafeAreaView>
          

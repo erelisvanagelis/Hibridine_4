@@ -33,7 +33,7 @@ export const useProductList = () => {
   }
 
   async function modifyProduct(product) {
-    await produtsCollection.doc(id).update({
+    await produtsCollection.doc(product.id).update({
       value: product.value,
       title: product.title,
       description: product.description,
@@ -69,5 +69,21 @@ export const useProductList = () => {
     setProductList(products);
   }
 
-  return {productList, addProduct, removeProduct, modifyProduct, refreshList};
+  function productExists(value) {
+    const list = productList.filter(item => item.value === value);
+    if (list.length == 0) {
+      return null;
+    } else {
+      return list[0];
+    }
+  }
+
+  return {
+    productList,
+    addProduct,
+    removeProduct,
+    modifyProduct,
+    refreshList,
+    productExists,
+  };
 };

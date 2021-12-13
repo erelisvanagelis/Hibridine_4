@@ -1,25 +1,16 @@
 import React from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
   TouchableOpacity,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import {RNCamera} from 'react-native-camera';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/core';
+import {useProductList} from '../hooks/useProductList';
 
 const PendingView = () => (
   <View
@@ -34,18 +25,21 @@ const PendingView = () => (
 );
 
 const CameraView = ({navigation}) => {
-  const [camera, setCamera] = useState(null)
+  const [camera, setCamera] = useState(null);
+  const productHook = useProductList();
 
-  const barcodeDetection = (event) => {
+  const barcodeDetection = event => {
     if (event.barcodes.length !== 0) {
-      console.log(event)
-      console.log(event.barcodes)
-
-      camera.pausePreview()
-      const data = event.barcodes[0].data
-      navigation.navigate('add', { value: data })
+      camera.pausePreview();
+      const data = event.barcodes[0].data;
+      const product = productHook.productExists(data);
+      if (product == null) {
+        navigation.navigate('add', {value: data});
+      } else {
+        navigation.navigate('found', {product: product});
+      }
     }
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -57,10 +51,8 @@ const CameraView = ({navigation}) => {
         type={RNCamera.Constants.Type.back}
         flashMode={RNCamera.Constants.FlashMode.torch}
         captureAudio={false}
-        onGoogleVisionBarcodesDetected={event => { 
-          // console.log(event)
-          // console.log(event.barcodes)
-          barcodeDetection(event)
+        onGoogleVisionBarcodesDetected={event => {
+          barcodeDetection(event);
         }}
         androidCameraPermissionOptions={{
           title: 'Permission to use camera',
@@ -81,7 +73,10 @@ const CameraView = ({navigation}) => {
               <TouchableOpacity
                 onPress={() => camera.resumePreview()}
                 style={styles.capture}>
-                <Text style={{fontSize: 14, color: 'red'}}> Begin recognition </Text>
+                <Text style={{fontSize: 14, color: 'red'}}>
+                  {' '}
+                  Resume recognition{' '}
+                </Text>
               </TouchableOpacity>
             </View>
           );
@@ -93,9 +88,14 @@ const CameraView = ({navigation}) => {
 
 const CameraScreen = ({navigation}) => {
   const isFocused = useIsFocused();
+  const productHook = useProductList();
+
+  useEffect(() => {
+    productHook.refreshList();
+  }, []);
 
   if (isFocused) {
-    return <CameraView navigation={navigation}/>;
+    return <CameraView navigation={navigation} />;
   } else {
     return <PendingView />;
   }

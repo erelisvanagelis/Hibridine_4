@@ -6,36 +6,27 @@
  * @flow strict-local
  */
 
- import React from 'react';
- import {
-   SafeAreaView,
-   ScrollView,
-   StatusBar,
-   StyleSheet,
-   useColorScheme,
-   View,
-   TouchableOpacity,
- } from 'react-native';
- 
- import {
-   Colors,
-   DebugInstructions,
-   Header,
-   LearnMoreLinks,
-   ReloadInstructions,
- } from 'react-native/Libraries/NewAppScreen';
-
- import { Text, Card } from 'react-native-elements';
- 
- import {useState} from 'react';
+import React from 'react';
+import {SafeAreaView, ScrollView} from 'react-native';
 import Product from '../components/Product';
 
- const FoundProductScreen = ({route}) => {
-    const {product} = route.params;
-   return (
-     <SafeAreaView>
-         <Product product={product} />
-     </SafeAreaView>
-   );
- };
- export default FoundProductScreen;
+const FoundProductScreen = ({route, navigation}) => {
+  console.log('FoundProductScreen');
+  const {product} = route.params;
+  console.log(product);
+  const callback = () => {
+    navigation.navigate('update', {product: product});
+  };
+  return (
+    <SafeAreaView>
+      <ScrollView>
+        <Product
+          product={product}
+          buttonTitle="Update product"
+          onClick={callback}
+        />
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+export default FoundProductScreen;

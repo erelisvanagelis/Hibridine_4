@@ -7,56 +7,36 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  TouchableOpacity,
-  FlatList
-} from 'react-native';
+import {SafeAreaView, FlatList} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import {useState, useEffect} from 'react';
 import {useProductList} from '../hooks/useProductList';
 import Product from '../components/Product';
 
-const AllProductScreen = () => {
+const AllProductScreen = ({navigation}) => {
   const productHook = useProductList();
 
-  const callback = (product) => {
-      console.log("spaustas")
-      console.log(product)
-  }
-//   useEffect(() => {
-//     productHook.refreshList();
-//   }, []);
+  const callback = product => {
+    console.log('spaustas');
+    console.log(product);
+    navigation.navigate('update', {product: product});
+  };
 
-  const renderItem = ({ item }) => (
-      <Product product={{
-          id:item.id,
-          value: item.id,
-          title: item.title,
-          description: item.description,
-          price: item.price
-      }} buttonTitle="Delete?" onClick={callback} />
+  const renderItem = ({item}) => (
+    <Product
+      product={{
+        id: item.id,
+        value: item.value,
+        title: item.title,
+        description: item.description,
+        price: item.price,
+      }}
+      buttonTitle="Update Product"
+      onClick={callback}
+    />
   );
 
   return (
     <SafeAreaView>
-      {/* {productHook.productList.map(product => (
-        <Text>product.title</Text>
-      ))} */}
       <FlatList
         data={productHook.productList}
         renderItem={renderItem}

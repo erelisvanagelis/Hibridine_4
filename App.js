@@ -6,15 +6,8 @@
  * @flow strict-local
  */
 
-
 import React from 'react';
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
+import {RecoilRoot} from 'recoil';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -22,6 +15,7 @@ import CameraScreen from './src/screens/CameraScreen';
 import AddProductScreen from './src/screens/AddProductScreen';
 import FoundProductScreen from './src/screens/FoundProductScreen';
 import AllProductScreen from './src/screens/AllProductsScreen';
+import UpdateProductScreen from './src/screens/UpdateProductScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -32,6 +26,7 @@ const StackScreens = () => {
       <Stack.Screen name="camera" component={CameraScreen} />
       <Stack.Screen name="add" component={AddProductScreen} />
       <Stack.Screen name="found" component={FoundProductScreen} />
+      <Stack.Screen name="update" component={UpdateProductScreen} />
     </Stack.Navigator>
   );
 };

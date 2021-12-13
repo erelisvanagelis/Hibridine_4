@@ -12,35 +12,34 @@ import {SafeAreaView, ScrollView} from 'react-native';
 import ProductEditable from '../components/ProductEditable';
 import {useProductList} from '../hooks/useProductList';
 
-const AddProductScreen = ({route}) => {
-  const {value} = route.params;
+const UpdateProductScreen = ({route}) => {
+  const {product} = route.params;
   const productHook = useProductList();
+
   const callback = product => {
     console.log('pasiekia callback');
-    productHook.addProduct(
-      product.value,
-      product.title,
-      product.description,
-      product.price,
-    );
+    console.log(product);
+    productHook.removeProduct(product.id);
   };
+
+  const callbackD = product => {
+    console.log('pasiekia callbackD');
+    console.log(product);
+    productHook.modifyProduct(product);
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
         <ProductEditable
-          product={{
-            value: value,
-            title: '',
-            description: '',
-            price: '',
-          }}
-          buttonText="Add product"
+          product={product}
+          buttonText="Delete"
           onClick={callback}
-          buttonTextD={null}
-          onClickD={null}
+          buttonTextD="Update"
+          onClickD={callbackD}
         />
       </ScrollView>
     </SafeAreaView>
   );
 };
-export default AddProductScreen;
+export default UpdateProductScreen;

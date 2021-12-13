@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 
 import {RNCamera} from 'react-native-camera';
@@ -35,9 +35,17 @@ const CameraView = ({navigation}) => {
       const product = productHook.productExists(data);
 
       if (product == null) {
-        navigation.navigate('stack', {params: {value: data}, screen: 'add'});
+        navigation.navigate('stack', {
+          params: {value: data},
+          initial: false,
+          screen: 'add',
+        });
       } else {
-        navigation.navigate('stack', {params: {product: product}, screen: 'found'});
+        navigation.navigate('stack', {
+          params: {product: product},
+          initial: false,
+          screen: 'found',
+        });
       }
     }
   };
@@ -65,7 +73,7 @@ const CameraView = ({navigation}) => {
           if (status !== 'READY') {
             return <PendingView />;
           } else {
-            return <ActivityIndicator size="large"/>
+            return <ActivityIndicator size="large" />;
           }
         }}
       </RNCamera>

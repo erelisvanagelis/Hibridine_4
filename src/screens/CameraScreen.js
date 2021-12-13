@@ -74,8 +74,7 @@ const CameraView = ({navigation}) => {
           if (status !== 'READY') {
             return <PendingView />;
           } else {
-            return <ActivityBar color={'yellow'} text="Recognizing" /> ;
-            // <ActivityIndicator size="large" />;
+            return <ActivityBar color={'dodgerblue'} text="Recognizing" /> ;
           }
         }}
       </RNCamera>

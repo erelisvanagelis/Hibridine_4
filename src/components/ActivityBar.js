@@ -3,12 +3,11 @@ import {View, Animated} from 'react-native';
 import {Text, Card, Button} from 'react-native-elements';
 
 const ActivityBar = ({color, text}) => {
-  const translation = new Animated.Value(-500);
+  const translation = new Animated.Value(-100);
   useEffect(() => {
     Animated.loop(
-        Animated.spring(translation, {
-          toValue: 500,
-          friction: 1,
+        Animated.timing(translation, {
+          toValue: 600,
           useNativeDriver: true,
           duration: 1000
         }),

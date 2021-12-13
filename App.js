@@ -52,7 +52,7 @@ const App = () => {
   return (
     <RecoilRoot>
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator swipeEnabled={true}>
           <Tab.Screen
             name="camera"
             component={CameraScreen}

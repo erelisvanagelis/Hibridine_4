@@ -33,6 +33,7 @@ export const useProductList = () => {
   }
 
   async function modifyProduct(product) {
+    console.log("modifyProduct: ")
     await produtsCollection.doc(product.id).update({
       value: product.value,
       title: product.title,
@@ -41,14 +42,16 @@ export const useProductList = () => {
     });
 
     const index = productList.findIndex(item => item.id === product.id);
-    productList[index] = {
+    console.log("index: " + index)
+    const clone = [...productList];
+    clone[index] = {
       value: product.value,
       title: product.title,
       description: product.description,
       price: product.price,
     };
 
-    setProductList(productList);
+    setProductList(clone);
   }
 
   async function refreshList() {

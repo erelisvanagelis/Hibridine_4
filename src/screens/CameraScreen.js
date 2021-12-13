@@ -11,6 +11,7 @@ import {RNCamera} from 'react-native-camera';
 import {useState, useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/core';
 import {useProductList} from '../hooks/useProductList';
+import ActivityBar from '../components/ActivityBar';
 
 const PendingView = () => (
   <View
@@ -73,7 +74,8 @@ const CameraView = ({navigation}) => {
           if (status !== 'READY') {
             return <PendingView />;
           } else {
-            return <ActivityIndicator size="large" />;
+            return <ActivityBar color={'yellow'} text="Recognizing" /> ;
+            // <ActivityIndicator size="large" />;
           }
         }}
       </RNCamera>

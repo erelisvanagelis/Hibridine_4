@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 
 import {RNCamera} from 'react-native-camera';
@@ -33,10 +33,11 @@ const CameraView = ({navigation}) => {
       camera.pausePreview();
       const data = event.barcodes[0].data;
       const product = productHook.productExists(data);
+
       if (product == null) {
-        navigation.navigate('add', {value: data});
+        navigation.navigate('stack', {params: {value: data}, screen: 'add'});
       } else {
-        navigation.navigate('found', {product: product});
+        navigation.navigate('stack', {params: {product: product}, screen: 'found'});
       }
     }
   };
@@ -61,25 +62,11 @@ const CameraView = ({navigation}) => {
           buttonNegative: 'Cancel',
         }}>
         {({camera, status}) => {
-          if (status !== 'READY') return <PendingView />;
-          return (
-            <View
-              style={{
-                flex: 0,
-                flexDirection: 'row',
-                justifyContent: 'center',
-                backgroundColor: 'transparent',
-              }}>
-              <TouchableOpacity
-                onPress={() => camera.resumePreview()}
-                style={styles.capture}>
-                <Text style={{fontSize: 14, color: 'red'}}>
-                  {' '}
-                  Resume recognition{' '}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          );
+          if (status !== 'READY') {
+            return <PendingView />;
+          } else {
+            return <ActivityIndicator size="large"/>
+          }
         }}
       </RNCamera>
     </SafeAreaView>

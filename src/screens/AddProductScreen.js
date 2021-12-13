@@ -7,12 +7,12 @@
  */
 
 import React from 'react';
-import {SafeAreaView, ScrollView} from 'react-native';
+import {SafeAreaView, ScrollView, Alert} from 'react-native';
 
 import ProductEditable from '../components/ProductEditable';
 import {useProductList} from '../hooks/useProductList';
 
-const AddProductScreen = ({route}) => {
+const AddProductScreen = ({route, navigation}) => {
   const {value} = route.params;
   const productHook = useProductList();
   const callback = product => {
@@ -22,6 +22,17 @@ const AddProductScreen = ({route}) => {
       product.title,
       product.description,
       product.price,
+    );
+
+    Alert.alert(
+      "Product Added",
+      "Product was succesfuly added, pres Done to continue",
+      [
+        {
+          text: "Done",
+          onPress: () => navigation.popToTop()
+        }
+      ]
     );
   };
   return (

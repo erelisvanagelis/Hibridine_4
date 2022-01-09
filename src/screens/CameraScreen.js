@@ -5,6 +5,7 @@ import {
   Text,
   View,
   ActivityIndicator,
+  Linking 
 } from 'react-native';
 
 import {RNCamera} from 'react-native-camera';
@@ -33,8 +34,10 @@ const CameraView = ({navigation}) => {
     if (event.barcodes.length !== 0) {
       camera.pausePreview();
       const data = event.barcodes[0].data;
+      console.log(event.barcodes[0])
       const product = productHook.productExists(data);
-
+      console.log('product: ')
+      console.log(product)
       if (product == null) {
         navigation.navigate('stack', {
           params: {value: data},
@@ -74,7 +77,7 @@ const CameraView = ({navigation}) => {
           if (status !== 'READY') {
             return <PendingView />;
           } else {
-            return <ActivityBar color={'dodgerblue'} text="Recognizing" /> ;
+            return <ActivityBar color={'dodgerblue'} text="Recognizing" />;
           }
         }}
       </RNCamera>

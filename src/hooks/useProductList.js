@@ -73,12 +73,29 @@ export const useProductList = () => {
   }
 
   function productExists(value) {
-    const list = productList.filter(item => item.value === value);
-    if (list.length == 0) {
-      return null;
-    } else {
-      return list[0];
-    }
+    console.log('#######################################')
+    console.log('barkodo verte: ' + value)
+    console.log('turimu produktu sk: ' + productList.length)
+    let temp = null
+    productList.map (item => {
+      console.log(item.title + " " + item.value)
+      if (item.value === value) {
+        temp = item
+        console.log("rasta")
+        console.log(item)
+        
+        // return item
+      }
+    })
+    
+    console.log('#######################################')
+    return temp
+    // const list = productList.filter(item => item.value === value);
+    // if (list.length == 0) {
+    //   return null;
+    // } else {
+    //   return list[0];
+    // }
   }
 
   return {
